@@ -27,7 +27,7 @@ app = Dash(__name__, external_stylesheets=external_stylesheets,suppress_callback
 
 server = app.server
 #source filname (only categorical variables)
-filename_c='datos.csv'
+filename_c='cluster_one.csv'
 # remove unnamed column
 data=pd.read_csv(filename_c)
 try:
@@ -91,7 +91,8 @@ def show_kmodes(n_clicks,nclusters):
         #predicting over main dataset
         data['cluster']=km.predict(X)
         #saving results
-        data.to_csv(f'data_{nclusters}_clusters.csv')
+        fsplitted=filename_c.split('.')[0]
+        data.to_csv(f'{fsplitted}_{nclusters}_clusters.csv',index=False)
         #counting clusters
         summary_df=data['cluster'].value_counts().reset_index()
         summary_df=summary_df.rename(columns={'index':'CLUSTER','cluster':'CANTIDAD'})
@@ -151,7 +152,7 @@ def show_kmodes(n_clicks,nclusters):
         print(ml_algorithms_list)
         cent_div=html.Div([html.H5('Centroides'),cent_datatable])
         return dcc.Dropdown(id='questions-drop',options=[{'label':i,'value':i} for i in data.columns[:-1]],value=data.columns[0]),\
-              cent_div,summary_fig,algo_list_box,f' Se ha creado el archivo data_{nclusters}_clusters.csv'
+              cent_div,summary_fig,algo_list_box,f' Se ha creado el archivo {fsplitted}_{nclusters}_clusters.csv'
     return '','','','',''
 
 # plotting clustering results by column
