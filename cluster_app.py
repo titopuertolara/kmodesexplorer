@@ -27,11 +27,12 @@ app = Dash(__name__, external_stylesheets=external_stylesheets,suppress_callback
 
 server = app.server
 #source filname (only categorical variables)
-filename_c='cluster_one.csv'
+filename_c='one.csv'
 # remove unnamed column
 data=pd.read_csv(filename_c)
 try:
     del data['Unnamed: 0']
+    #del data['cluster']
 except:
     print('no se pudo borrar Unammed')
 #custom filter
@@ -57,6 +58,7 @@ app.layout=html.Div([
         html.Div([dcc.Loading(id='loading2',children=[html.Div(id='questions-plot')],type='graph')],style={'display':'inline-block','width':'70%'}),
     ]),
     dcc.Loading(id='loading3',children=[html.Div(id='centroid-div')],type='graph'),
+    html.Br(),
     html.Div(id='algo-list',style={'display':'inline-block'}),
     html.Br(),
     dcc.Loading(id='loading4',children=[html.Div(id='train-result-div',style={'margin-top':'-8%'})],type='cube')
