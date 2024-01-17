@@ -1,6 +1,6 @@
 # kmodesexplorer
 
-Explore data clusters with kmodes algoithm, also explores importances trough differente classification algorithms
+Explore data clusters with kmodes algorithm, also explores importances trough differente classification algorithms
 
 1. pip3 install dash
 2. pip3 install kmodes
